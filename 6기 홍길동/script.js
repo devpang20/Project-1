@@ -17,6 +17,51 @@ class Calualtor {
     this.$previousPreviewPrompt.textContent =
       this.$currentPreviewPrompt.textContent + " " + operation;
     this.$currentPreviewPrompt.textContent = "";
+
+    this.previousOperation = operation;
+  }
+
+  handlePlus() {
+    return (
+      +this.$previousPreviewPrompt.textContent.split(" ")[0] +
+      +this.$currentPreviewPrompt.textContent
+    );
+  }
+  handleMinus() {
+    return (
+      +this.$previousPreviewPrompt.textContent.split(" ")[0] -
+      +this.$currentPreviewPrompt.textContent
+    );
+  }
+  handleMultiply() {
+    return (
+      +this.$previousPreviewPrompt.textContent.split(" ")[0] *
+      +this.$currentPreviewPrompt.textContent
+    );
+  }
+  handleDivide() {
+    return (
+      +this.$previousPreviewPrompt.textContent.split(" ")[0] /
+      +this.$currentPreviewPrompt.textContent
+    );
+  }
+
+  onEqaul() {
+    let result = 0;
+
+    if (this.previousOperation == "+") {
+      result = this.handlePlus();
+    } else if (this.previousOperation == "-") {
+      result = this.handleMinus();
+    } else if (this.previousOperation == "*") {
+      result = this.handleMultiply();
+    } else if (this.previousOperation == "÷") {
+      result = this.handleDivide();
+    }
+
+    this.$previousPreviewPrompt.textContent = "";
+    this.$currentPreviewPrompt.textContent = result.toString();
+    this.currentOpenration = "";
   }
 }
 
@@ -51,7 +96,11 @@ $numbers.forEach(($number) => {
 // 연산자선택
 $operations.forEach(($operation) => {
   $operation.addEventListener("click", (e) => {
-    calc.onPressOperation($operation.textContent);
+    if (e.target.textContent.trim() === "=") {
+      calc.onEqaul();
+    } else {
+      calc.onPressOperation($operation.textContent.trim());
+    }
   });
 });
 
