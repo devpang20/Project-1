@@ -63,6 +63,18 @@ class Calualtor {
     this.$currentPreviewPrompt.textContent = result.toString();
     this.currentOpenration = "";
   }
+
+  onReset() {
+    this.$previousPreviewPrompt.textContent = "";
+    this.$currentPreviewPrompt.textContent = "";
+    this.previousOperation = "";
+    this.currentOpenration = "";
+  }
+
+  onDelete() {
+    this.$currentPreviewPrompt.textContent =
+      this.$currentPreviewPrompt.textContent.slice(0, -1);
+  }
 }
 
 // 객체 생성
@@ -102,6 +114,14 @@ $operations.forEach(($operation) => {
       calc.onPressOperation($operation.textContent.trim());
     }
   });
+});
+
+$reset.addEventListener("click", (e) => {
+  calc.onReset();
+});
+
+$delete.addEventListener("click", (e) => {
+  calc.onDelete();
 });
 
 const calc = new Calualtor($previousPreview, $currentPreview);
