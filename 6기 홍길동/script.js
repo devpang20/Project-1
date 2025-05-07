@@ -14,7 +14,9 @@ class Calualtor {
   }
 
   onPressOperation(operation) {
-    console.log(operation);
+    this.$previousPreviewPrompt.textContent =
+      this.$currentPreviewPrompt.textContent + " " + operation;
+    this.$currentPreviewPrompt.textContent = "";
   }
 }
 
@@ -49,7 +51,7 @@ $numbers.forEach(($number) => {
 // 연산자선택
 $operations.forEach(($operation) => {
   $operation.addEventListener("click", (e) => {
-    calc.onPressOperation($operation);
+    calc.onPressOperation($operation.textContent);
   });
 });
 
